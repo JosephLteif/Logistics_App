@@ -40,12 +40,12 @@ class TextInputWidget extends StatefulWidget {
 class _TextInputWidgetState extends State<TextInputWidget>
     with SingleTickerProviderStateMixin {
   TextEditingController name = new TextEditingController();
-  TextEditingController mobile = new TextEditingController();
-  String text = "               Login";
+  TextEditingController password = new TextEditingController();
+  String text = "Login";
 
   void onChanged() {
-    if (text == "")
-      text = "               Login";
+    if (name.text.startsWith("admin") && password.text.startsWith("admin"))
+      text = "Login";
     else
       text = "";
   }
@@ -65,6 +65,7 @@ class _TextInputWidgetState extends State<TextInputWidget>
               width: 500,
               child: Text(
                 text,
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 40, color: Colors.white, height: 2),
               ))),
       Positioned(
@@ -72,6 +73,7 @@ class _TextInputWidgetState extends State<TextInputWidget>
           right: 50,
           child: Container(
             child: TextField(
+              controller: name,
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.supervised_user_circle),
                   labelText: "Username",
@@ -84,6 +86,7 @@ class _TextInputWidgetState extends State<TextInputWidget>
           right: 50,
           child: Container(
             child: TextField(
+              controller: password,
               obscureText: true,
               decoration: InputDecoration(
                   prefixIcon: Icon(Icons.security),
