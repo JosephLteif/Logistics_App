@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "863510917361",
+    "firebase_url": "https://red-cross-app-e16b9.firebaseio.com",
+    "project_id": "red-cross-app-e16b9",
+    "storage_bucket": "red-cross-app-e16b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863510917361:android:bf6af53cfc688a9b7bf950",
+        "android_client_info": {
+          "package_name": "com.example.Logistics_App"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863510917361-n05aicta7qmoefjnfbvpa4efnbc4m5vq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Logistics_App",
+            "certificate_hash": "61b3556ff819b3855c868cbbb0e44b051634998a"
+          }
+        },
+        {
+          "client_id": "863510917361-3m377tn6bdego7nt4ke96u6f1ifgfk29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw9_FehthHeohdwEZ2xevd4-YRLvuxgaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863510917361-3m377tn6bdego7nt4ke96u6f1ifgfk29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
