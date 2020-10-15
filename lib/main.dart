@@ -1,9 +1,8 @@
-import 'package:Logistics_App/SignUp.dart';
+import 'package:Logistics_App/Registration.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 
 import 'FrontPage.dart';
-import 'Login.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,54 +38,5 @@ class MyHomePage extends StatelessWidget {
         child: MyFrontPage(),
       ),
     );
-  }
-}
-
-class TextInputWidget extends StatefulWidget {
-  @override
-  _TextInputWidgetState createState() => _TextInputWidgetState();
-}
-
-class _TextInputWidgetState extends State<TextInputWidget>
-    with SingleTickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Positioned(
-          top: 200,
-          child: FlatButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.red)),
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => MySignUpPage()),
-              // );
-            },
-            child: Text("Sign Up"),
-            color: Colors.transparent,
-            textColor: Colors.red,
-          )),
-      Container(),
-      Positioned(
-          top: 275,
-          right: 150,
-          child: FlatButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.red)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyLoginPage()),
-              );
-            },
-            child: Text("Login"),
-            color: Colors.red,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-          )),
-    ]);
   }
 }

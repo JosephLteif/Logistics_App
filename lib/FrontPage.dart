@@ -1,3 +1,4 @@
+import 'package:backdrop/scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'Login.dart';
@@ -20,9 +21,9 @@ class _TextInputWidgetState extends State<TextInputWidget>
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Positioned(
-          top: 110,
-          left: 140,
-          child: Image(image: AssetImage('assets/RedCross_Logo.jpeg'))),
+          top: 60,
+          left: 90,
+          child: Image(image: AssetImage('assets/RedCross_Logo.png'))),
       Positioned(
           top: 360,
           left: 60,
@@ -33,12 +34,7 @@ class _TextInputWidgetState extends State<TextInputWidget>
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.red)),
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => MySignUpPage()),
-                  // );
-                },
+                onPressed: () => Backdrop.of(context).fling(),
                 child: Text("Sign Up"),
                 color: Colors.transparent,
                 textColor: Colors.red,
