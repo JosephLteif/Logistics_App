@@ -1,4 +1,9 @@
+import 'package:Logistics_App/SignUp.dart';
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+
+import 'FrontPage.dart';
+import 'Login.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,13 +27,18 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text('Hello Red Cross!'),
-          elevation: 0.0,
-        ),
-        body: TextInputWidget());
+    return BackdropScaffold(
+      appBar: AppBar(
+        title: Text("Logistics Platform"),
+        actions: <Widget>[BackdropToggleButton(icon: AnimatedIcons.menu_close)],
+      ),
+      backLayer: Center(
+        child: MySignUpPage(),
+      ),
+      frontLayer: Center(
+        child: MyFrontPage(),
+      ),
+    );
   }
 }
 
@@ -39,93 +49,44 @@ class TextInputWidget extends StatefulWidget {
 
 class _TextInputWidgetState extends State<TextInputWidget>
     with SingleTickerProviderStateMixin {
-  TextEditingController name = new TextEditingController();
-  TextEditingController password = new TextEditingController();
-  String text = "Login";
-
-  void onChanged() {
-    if (name.text.startsWith("admin") && password.text.startsWith("admin"))
-      text = "Login";
-    else
-      text = "";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Positioned(
-          child: Container(
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 50)],
-                  color: Colors.red,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(36),
-                      bottomRight: Radius.circular(36))),
-              height: 120,
-              width: 500,
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 40, color: Colors.white, height: 2),
-              ))),
-      Positioned(
           top: 200,
-          right: 50,
-          child: Container(
-            child: TextField(
-              controller: name,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.supervised_user_circle),
-                  labelText: "Username",
-                  border: OutlineInputBorder()),
-            ),
-            width: 300,
-          )),
-      Positioned(
-          top: 275,
-          right: 50,
-          child: Container(
-            child: TextField(
-              controller: password,
-              obscureText: true,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.security),
-                  labelText: "Password",
-                  border: OutlineInputBorder()),
-            ),
-            width: 300,
-          )),
-      Positioned(
-          top: 340,
-          left: 50,
           child: FlatButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.red)),
             onPressed: () {
-              setState(() {
-                onChanged();
-              });
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => MySignUpPage()),
+              // );
             },
-            child: Text("Forgot your password?"),
-            textColor: Colors.lightBlue,
+            child: Text("Sign Up"),
+            color: Colors.transparent,
+            textColor: Colors.red,
           )),
       Container(),
       Positioned(
-          top: 340,
-          left: 275,
+          top: 275,
+          right: 150,
           child: FlatButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Colors.red)),
             onPressed: () {
-              setState(() {
-                onChanged();
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyLoginPage()),
+              );
             },
             child: Text("Login"),
             color: Colors.red,
             textColor: Colors.white,
             disabledColor: Colors.grey,
           )),
-      Container(
-        width: 40,
-        height: 60,
-      ),
     ]);
   }
 }
