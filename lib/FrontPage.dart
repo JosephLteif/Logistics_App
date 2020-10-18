@@ -19,14 +19,26 @@ class _TextInputWidgetState extends State<TextInputWidget>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    double swidth = MediaQuery.of(context).size.width;
+    double sheight = MediaQuery.of(context).size.height;
+
+    double wcenter(double width) {
+      return (swidth / 2 - width / 2);
+    }
+
+    double hcenter(double height) {
+      return (sheight / 2 - height / 2);
+    }
+
     return Stack(children: <Widget>[
       Positioned(
           top: 60,
-          left: 90,
+          left: wcenter(250),
           child: Image(image: AssetImage('assets/RedCross_Logo.png'))),
+      Container(),
       Positioned(
-          top: 360,
-          left: 60,
+          top: 430,
+          left: wcenter(300),
           child: Container(
               width: 300,
               height: 50,
@@ -35,27 +47,6 @@ class _TextInputWidgetState extends State<TextInputWidget>
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.red)),
                 onPressed: () => Backdrop.of(context).fling(),
-                child: Text("Sign Up"),
-                color: Colors.transparent,
-                textColor: Colors.red,
-              ))),
-      Container(),
-      Positioned(
-          top: 430,
-          left: 60,
-          child: Container(
-              width: 300,
-              height: 50,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red)),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyLoginPage()),
-                  );
-                },
                 child: Text("Login"),
                 color: Colors.red,
                 textColor: Colors.white,

@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'PasswordRecovery.dart';
+import 'Registration.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
 
 class MyLoginPage extends StatelessWidget {
   @override
@@ -11,7 +15,8 @@ class MyLoginPage extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: Text('Hello Red Cross!'),
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: Colors.black),
           elevation: 0.0,
         ),
         body: _EmailPasswordForm());
@@ -30,6 +35,38 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
   bool _success;
   String _userEmail;
   String text = "Login";
+
+  // _signOut() async {
+  //   await _auth.signOut();
+  //  }
+
+  Future<String> signInWithGoogle() async {
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text('Login Successful!')));
+    }
+
+    Scaffold.of(context)
+        .showSnackBar(SnackBar(content: Text('Failed to authenthicate!')));
+  }
 
   Future<String> _signInWithEmailAndPassword() async {
     final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
@@ -63,21 +100,35 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
+    double swidth = MediaQuery.of(context).size.width;
+    double sheight = MediaQuery.of(context).size.height;
+
+    double wcenter(double width) {
+      return (swidth / 2 - width / 2);
+    }
+
+    double hcenter(double height) {
+      return (sheight / 2 - height / 2);
+    }
+
     return Form(
         key: _formKey,
         child: Stack(children: <Widget>[
           Positioned(
-              top: 40,
-              left: 150,
+              left: 30,
               child: Container(
                   child: Text(
-                text,
+                "Login",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 40, color: Colors.red, height: 2),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    color: Colors.red,
+                    height: 2),
               ))),
           Positioned(
-              top: 200,
-              right: 50,
+              top: 100,
+              left: wcenter(370),
               child: Container(
                 child: TextFormField(
                   validator: (String value) {
@@ -90,13 +141,16 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.supervised_user_circle),
                       labelText: "Email",
-                      border: OutlineInputBorder()),
+                      hintText: 'Email@hotmail.com',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(60)))),
                 ),
-                width: 300,
+                width: 370,
+                height: 45,
               )),
           Positioned(
-              top: 275,
-              right: 50,
+              top: 165,
+              left: wcenter(370),
               child: Container(
                 child: TextFormField(
                   validator: (String value) {
@@ -110,13 +164,16 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.security),
                       labelText: "Password",
-                      border: OutlineInputBorder()),
+                      hintText: '********',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(60)))),
                 ),
-                width: 300,
+                width: 370,
+                height: 45,
               )),
           Positioned(
-              top: 340,
-              left: 50,
+              top: 200,
+              left: wcenter(0),
               child: FlatButton(
                 onPressed: () {
                   Navigator.push(
@@ -126,12 +183,14 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                   );
                 },
                 child: Text("Forgot your password?"),
-                textColor: Colors.lightBlue,
+                textColor: Colors.blue,
+                hoverColor: Colors.lightBlue,
               )),
-          Container(),
           Positioned(
-              top: 340,
-              left: 275,
+              width: 310,
+              height: 40,
+              top: 270,
+              left: wcenter(310),
               child: FlatButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
@@ -142,103 +201,67 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                 color: Colors.red,
                 textColor: Colors.white,
                 disabledColor: Colors.grey,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+              )),
+          Positioned(
+            top: 330,
+            left: wcenter(15),
+            child: Text("OR"),
+          ),
+          Container(),
+          Positioned(
+            top: 480,
+            left: 80,
+            child: Row(
+              children: <Widget>[
+                Text("Don't have an account already?"),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MySignUpPage()),
+                    );
+                  },
+                  child: Text("Sign Up."),
+                  textColor: Colors.blue,
+                  hoverColor: Colors.lightBlue,
+                )
+              ],
+            ),
+          ),
+          Positioned(
+              width: 330,
+              height: 40,
+              top: 370,
+              left: wcenter(310),
+              child: FlatButton(
+                onPressed: () {
+                  signInWithGoogle().then((result) {});
+                },
+                child: Row(children: <Widget>[
+                  Image(
+                      image: AssetImage("assets/google_logo.png"),
+                      height: 35.0),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Sign in with Google',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                      ))
+                ]),
+                color: Colors.white,
+                disabledColor: Colors.grey,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
               )),
           Container(
             width: 40,
             height: 60,
           ),
         ]));
-  }
-}
-
-class TextInputWidget extends StatefulWidget {
-  @override
-  _TextInputWidgetState createState() => _TextInputWidgetState();
-}
-
-class _TextInputWidgetState extends State<TextInputWidget>
-    with SingleTickerProviderStateMixin {
-  TextEditingController name = new TextEditingController();
-  TextEditingController password = new TextEditingController();
-  String text = "Login";
-
-  void onChanged() {
-    if (name.text.startsWith("admin") && password.text.startsWith("admin"))
-      text = "Login";
-    else
-      text = "";
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Positioned(
-          top: 40,
-          left: 150,
-          child: Container(
-              child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40, color: Colors.red, height: 2),
-          ))),
-      Positioned(
-          top: 200,
-          right: 50,
-          child: Container(
-            child: TextField(
-              controller: name,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.supervised_user_circle),
-                  labelText: "Username",
-                  border: OutlineInputBorder()),
-            ),
-            width: 300,
-          )),
-      Positioned(
-          top: 275,
-          right: 50,
-          child: Container(
-            child: TextField(
-              controller: password,
-              obscureText: true,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.security),
-                  labelText: "Password",
-                  border: OutlineInputBorder()),
-            ),
-            width: 300,
-          )),
-      Positioned(
-          top: 340,
-          left: 50,
-          child: FlatButton(
-            onPressed: () {
-              setState(() {
-                onChanged();
-              });
-            },
-            child: Text("Forgot your password?"),
-            textColor: Colors.lightBlue,
-          )),
-      Container(),
-      Positioned(
-          top: 340,
-          left: 275,
-          child: FlatButton(
-            onPressed: () {
-              setState(() {
-                onChanged();
-              });
-            },
-            child: Text("Login"),
-            color: Colors.red,
-            textColor: Colors.white,
-            disabledColor: Colors.grey,
-          )),
-      Container(
-        width: 40,
-        height: 60,
-      ),
-    ]);
   }
 }

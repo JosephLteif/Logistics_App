@@ -3,6 +3,7 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 
 import 'FrontPage.dart';
+import 'Login.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,10 +30,10 @@ class MyHomePage extends StatelessWidget {
     return BackdropScaffold(
       appBar: AppBar(
         title: Text("Logistics Platform"),
-        actions: <Widget>[BackdropToggleButton(icon: AnimatedIcons.menu_close)],
+        actions: <Widget>[BackdropToggleButton(icon: AnimatedIcons.close_menu)],
       ),
       backLayer: Center(
-        child: MySignUpPage(),
+        child: MyLoginPage(),
       ),
       frontLayer: Center(
         child: MyFrontPage(),
