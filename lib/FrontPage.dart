@@ -1,8 +1,6 @@
 import 'package:backdrop/scaffold.dart';
 import 'package:flutter/material.dart';
 
-import 'Login.dart';
-
 class MyFrontPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,20 +18,29 @@ class _TextInputWidgetState extends State<TextInputWidget>
   @override
   Widget build(BuildContext context) {
     double swidth = MediaQuery.of(context).size.width;
-    double sheight = MediaQuery.of(context).size.height;
 
     double wcenter(double width) {
       return (swidth / 2 - width / 2);
     }
 
-    double hcenter(double height) {
-      return (sheight / 2 - height / 2);
-    }
-
     return Stack(children: <Widget>[
       Positioned(
-          top: 60,
-          left: wcenter(250),
+        bottom: 130,
+        child: Container(
+          width: swidth,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage(
+                  'assets/Resized-p-MMR0389-resized-50-percent-1024x682.png'),
+            ),
+          ),
+        ),
+      ),
+      Positioned(
+          top: 200,
+          width: 130,
+          left: wcenter(130),
           child: Image(image: AssetImage('assets/RedCross_Logo.png'))),
       Container(),
       Positioned(

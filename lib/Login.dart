@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'PasswordRecovery.dart';
@@ -105,10 +104,6 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
 
     double wcenter(double width) {
       return (swidth / 2 - width / 2);
-    }
-
-    double hcenter(double height) {
-      return (sheight / 2 - height / 2);
     }
 
     return Form(
@@ -253,7 +248,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                         ),
                       ))
                 ]),
-                color: Colors.white,
+                color: Colors.transparent,
                 disabledColor: Colors.grey,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),

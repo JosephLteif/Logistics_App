@@ -25,7 +25,6 @@ class _TextInputWidgetState extends State<TextInputWidget>
     with SingleTickerProviderStateMixin {
   TextEditingController email = new TextEditingController();
 
-  @override
   Future<void> resetPassword(String email) async {
     await _auth.sendPasswordResetEmail(email: email);
   }

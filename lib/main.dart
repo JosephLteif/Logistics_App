@@ -1,4 +1,3 @@
-import 'package:Logistics_App/Registration.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 

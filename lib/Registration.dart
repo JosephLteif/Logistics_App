@@ -70,10 +70,6 @@ class _RegisterEmailSectionState extends State<_RegisterEmailSection>
       return (swidth / 2 - width / 2);
     }
 
-    double hcenter(double height) {
-      return (sheight / 2 - height / 2);
-    }
-
     return Form(
         key: _formKey,
         child: Stack(children: <Widget>[
