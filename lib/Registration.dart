@@ -11,7 +11,7 @@ class MySignUpPage extends StatelessWidget {
           backgroundColor: Colors.red,
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         body: _RegisterEmailSection());
   }
 }

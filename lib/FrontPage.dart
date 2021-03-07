@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MyFrontPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(resizeToAvoidBottomPadding: false, body: TextInputWidget());
+    return Scaffold(resizeToAvoidBottomInset: false, body: TextInputWidget());
   }
 }
 

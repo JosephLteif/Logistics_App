@@ -12,7 +12,7 @@ class MyLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: Colors.black),
@@ -110,7 +110,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
         key: _formKey,
         child: Stack(children: <Widget>[
           Positioned(
-              left: 30,
+              left: wcenter(370),
               child: Container(
                   child: Text(
                 "Login",
@@ -226,7 +226,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
             ),
           ),
           Positioned(
-              width: 330,
+              width: 310,
               height: 40,
               top: 370,
               left: wcenter(310),
@@ -240,11 +240,15 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
                       height: 35.0),
                   Padding(
                       padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Sign in with Google',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.grey,
+                      child: Positioned(
+                        left: 100,
+                        right: 100,
+                        child: Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey,
+                          ),
                         ),
                       ))
                 ]),

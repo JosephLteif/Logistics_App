@@ -7,7 +7,7 @@ class MyPasswordRecoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Hello Red Cross!'),
           elevation: 0.0,
